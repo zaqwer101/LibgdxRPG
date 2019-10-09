@@ -15,6 +15,7 @@ public class LibgdxRPG extends ApplicationAdapter {
 	Texture img;
 	int size = 20;
 	Location location;
+
 	@Override
 	public void create () {
 		batch = new ShapeRenderer();
@@ -27,7 +28,7 @@ public class LibgdxRPG extends ApplicationAdapter {
 	public void render () {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.setColor(Color.RED);
+		batch.setColor(Color.BLACK);
 		batch.begin(ShapeRenderer.ShapeType.Line);
 		for (var l : location.getLocation())
 		{
