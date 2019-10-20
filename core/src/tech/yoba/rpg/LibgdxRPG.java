@@ -1,11 +1,13 @@
 package tech.yoba.rpg;
 
+import Game.Actions.MoveAction;
 import Game.Core.Creature;
 import Game.Core.Location;
 import Game.Core.Position;
 import Game.Core.Stats;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -27,8 +29,6 @@ public class LibgdxRPG extends ApplicationAdapter {
 
 	@Override
 	public void create () {
-
-
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("OpenSans-Regular.ttf"));
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		parameter.size = 10;
@@ -79,16 +79,43 @@ public class LibgdxRPG extends ApplicationAdapter {
 		}
 	}
 
+	public void keyboardHandler()
+	{
+		if (Gdx.input.isKeyJustPressed(Input.Keys.UP))
+		{
+			actor.performAction(new MoveAction(actor, new int[] {0, 1} ));
+		}
+		if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN))
+		{
+			actor.performAction(new MoveAction(actor, new int[] {0, -1} ));
+		}
+
+		if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT))
+		{
+			actor.performAction(new MoveAction(actor, new int[] {-1, 0} ));
+		}
+
+		if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT))
+		{
+			actor.performAction(new MoveAction(actor, new int[] {1, 0} ));
+		}
+
+		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
+		{
+			actor.endTurn();
+		}
+	}
+
 	public void drawUI()
 	{
 		SpriteBatch fontBatch = new SpriteBatch();
 		fontBatch.begin();
-//		font.draw(fontBatch, "Hello World", 620f, 10f);
 		for (int i = 0; i < Stats.allStats.length; i++)
 		{
-			font.draw(fontBatch, Stats.allStats[i] + ": " + actor.getStat(Stats.allStats[i]), 620f, 590 - i * 15);
+			font.draw(fontBatch, Stats.allStats[i] + ": " + actor.getStat(Stats.allStats[i]),
+					location.getSize()[0] * size + 10,
+					Gdx.graphics.getHeight() - 10 - i * 15);
 		}
-
 		fontBatch.end();
 	}
 
@@ -98,8 +125,9 @@ public class LibgdxRPG extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		drawMap(batch, location);
 		drawUI();
+		keyboardHandler();
 	}
-	
+
 	@Override
 	public void dispose () {
 		batch.dispose();
