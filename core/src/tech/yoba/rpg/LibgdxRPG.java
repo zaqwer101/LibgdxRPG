@@ -1,6 +1,7 @@
 package tech.yoba.rpg;
 
 import Game.Actions.MoveAction;
+import Game.Attacks.MeleeAttack;
 import Game.Core.Creature;
 import Game.Core.Location;
 import Game.Core.Position;
@@ -35,10 +36,14 @@ public class LibgdxRPG extends ApplicationAdapter {
 		font = generator.generateFont(parameter); // font size 12 pixels
 		generator.dispose();
 		font.setColor(Color.BLACK);
-
 		batch = new ShapeRenderer();
+
+		var actorStats = new Stats();
+		actorStats.setStat("endurance", 6);
 		location = new Location(30, 30);
 		actor = new Creature("Actor", '@', new Position(2, 2),location);
+		actor.addAttack(new MeleeAttack(2));
+		actor.addStats(actorStats);
 		enemy = new Creature("Enemy", 'E', new Position(10, 10),location);
 	}
 
