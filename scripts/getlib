@@ -1,0 +1,4 @@
+#!/bin/bash
+rm ../lib/JavaRPG* -rf
+VERSION=`cat ../../JavaRPG/version.properties | grep VERSION_NAME | awk -F "=" '{print $2}'`
+cp ../../JavaRPG/out/JavaRPG.main.jar ../lib/JavaRPG.${VERSION}.jar
