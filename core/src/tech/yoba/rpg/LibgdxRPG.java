@@ -121,7 +121,7 @@ public class LibgdxRPG extends ApplicationAdapter {
 
 	public void drawUI()
 	{
-
+        // test
 	}
 
 	@Override
