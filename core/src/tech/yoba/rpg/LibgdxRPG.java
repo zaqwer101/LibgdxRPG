@@ -16,9 +16,14 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class LibgdxRPG extends ApplicationAdapter {
 	ShapeRenderer batch;
@@ -26,7 +31,6 @@ public class LibgdxRPG extends ApplicationAdapter {
 	int size = 20;
 	Location location;
 	BitmapFont font;
-	Label label;
 	Creature actor;
 	Creature enemy;
 
@@ -112,23 +116,17 @@ public class LibgdxRPG extends ApplicationAdapter {
 		if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT))  { actor.performAction(new MoveAction(actor, new int[] {-1, 0} )); }
 		if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) { actor.performAction(new MoveAction(actor, new int[] {1, 0} )); 	}
 		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) { actor.endTurn(); enemy.endTurn(); }
+		if (Gdx.input.isKeyJustPressed(Input.Keys.I)) 	  { }
 	}
 
 	public void drawUI()
 	{
-		SpriteBatch fontBatch = new SpriteBatch();
-		fontBatch.begin();
-		for (int i = 0; i < Stats.allStats.length; i++)
-		{
-			font.draw(fontBatch, Stats.allStats[i] + ": " + actor.getStat(Stats.allStats[i]),
-					location.getSize()[0] * size + 10,
-					Gdx.graphics.getHeight() - 10 - i * 15);
-		}
-		fontBatch.end();
+
 	}
 
 	@Override
 	public void render () {
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		drawMap(batch, location);
